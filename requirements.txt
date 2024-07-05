@@ -1,0 +1,5 @@
+playwright==1.44.0
+pycryptodome==3.20.0
+scrapoxy==2.0.2
+Scrapy==2.11.2
+scrapy-playwright==0.0.36
