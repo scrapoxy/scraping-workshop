@@ -175,7 +175,7 @@ Hint: It relates to HTTP request headers 😉
 <details>
     <summary>Soluce is here</summary>
 
-    <a href="solutions/challenge-2.py" target="_blank">Open the soluce</a>
+    <a href="solutions/challenge-2.py">Open the soluce</a>
 </details>
 
 
@@ -273,8 +273,7 @@ You should observe an increase in the count of received and sent requests.
 
 <details>
     <summary>Soluce is here</summary>
-
-    <a href="solutions/challenge-3.py" target="_blank">Open the soluce</a>
+    <a href="solutions/challenge-3.py">Open the soluce</a>
 </details>
 
 
@@ -312,7 +311,7 @@ Refer to [Scrapoxy's documentation](https://scrapoxy.io/intro/scrapoxy) to add t
 <details>
     <summary>Soluce is here</summary>
 
-    <a href="solutions/challenge-4.py" target="_blank">Open the soluce</a>
+    <a href="solutions/challenge-4.py">Open the soluce</a>
 </details>
 
 
@@ -348,7 +347,7 @@ We will use the headless framework [Playwright](https://playwright.dev) along wi
             <img src="images/info.png" />
         </td>
         <td>
-            <a href="https://github.com/scrapy-plugins/scrapy-playwright" target="_blank">scrapy-playwright</a> should already be installed.
+            <a href="https://github.com/scrapy-plugins/scrapy-playwright">scrapy-playwright</a> should already be installed.
         </td>
     </tr>
 </table>
@@ -364,7 +363,7 @@ Our goal is to adapt the spider to integrate Playwright:
 <details>
     <summary>Soluce is here</summary>
 
-    <a href="solutions/challenge-5.py" target="_blank">Open the soluce</a>
+    <a href="solutions/challenge-5.py">Open the soluce</a>
 </details>
 
 
@@ -389,7 +388,7 @@ Hint: It involves adjusting timezones 😉
 <details>
     <summary>Soluce is here</summary>
 
-    <a href="solutions/challenge-6.py" target="_blank">Open the soluce</a>
+    <a href="solutions/challenge-6.py">Open the soluce</a>
 </details>
 
 
@@ -435,7 +434,7 @@ Our goal is to add [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree) ope
             <image src="images/note.png">
         </td>
         <td>
-            Of course, you can use <a href="https://obf-io.deobfuscate.io" target="_blank">online tools</a> to deobfuscate this script,
+            Of course, you can use <a href="https://obf-io.deobfuscate.io">online tools</a> to deobfuscate this script,
 given that it's a straightforward obfuscated script. 
             However, our focus is to understand how Babel can be used for deobfuscation.
         </td>
@@ -448,7 +447,7 @@ given that it's a straightforward obfuscated script.
             <image src="images/info.png">
         </td>
         <td>
-            <a href="https://github.com/features/copilot" target="_blank">GitHub Copilot</a>
+            <a href="https://github.com/features/copilot">GitHub Copilot</a>
             can provide a huge assistance in writing AST operations.
         </td>
     </tr>
@@ -484,7 +483,7 @@ Now, you can implement the 3 AST operations:
 <details>
     <summary>Soluce is here</summary>
 
-    <a href="solutions/challenge-7.js" target="_blank">Open the soluce</a>
+    <a href="solutions/challenge-7.js">Open the soluce</a>
 </details>
 
 
@@ -528,7 +527,7 @@ You can use the Python's `Crypto` and `base64` libraries.
 <details>
     <summary>Soluce is here</summary>
 
-    <a href="solutions/challenge-8.py" target="_blank">Open the soluce</a>
+    <a href="solutions/challenge-8.py">Open the soluce</a>
 </details>
 
 
