@@ -523,11 +523,9 @@ You can use the Python's `Crypto` and `base64` libraries:
             <ul>
                 <li>
                     Crypto.RSA.importKey requires a PEM key format such as:<br/>
-                    <code>
------BEGIN PUBLIC KEY-----<br/>
+                    <code>-----BEGIN PUBLIC KEY-----<br/>
 MY_PUBLIC_KEY<br/>
------END PUBLIC KEY-----
-                    </code>
+-----END PUBLIC KEY-----</code>
                 </li>
                 <li>RSA uses OAEP</li>
                 <li>Don't forget the SHA256 signature</li>
