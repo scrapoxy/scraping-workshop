@@ -208,7 +208,11 @@ Use [Scrapoxy](https://scrapoxy.io) to bypass the rate limit with a cloud provid
 
 ### Step 1: Install Scrapoxy
 
-Follow this [guide](https://scrapoxy.io/intro/get-started).
+Follow this [guide](https://scrapoxy.io/intro/get-started) or run the following command in the project directory:
+
+```shell
+docker run -p 8888:8888 -p 8890:8890 -e AUTH_LOCAL_USERNAME=admin -e AUTH_LOCAL_PASSWORD=password -e BACKEND_JWT_SECRET=secret1 -e FRONTEND_JWT_SECRET=secret2 -e STORAGE_FILE_FILENAME=/scrapoxy.json -v ./scrapoxy.json:/scrapoxy.json fabienvauchelles/scrapoxy:latest
+```
 
 
 ### Step 2: Create a new project
