@@ -466,7 +466,7 @@ AST Explorer parses the source code and generates a visual tree:
             <image src="images/info.png">
         </td>
         <td>
-            I only obfuscated strings, not the code flow.
+            For the record, I only obfuscated strings, not the code flow.
         </td>
     </tr>
 </table>
