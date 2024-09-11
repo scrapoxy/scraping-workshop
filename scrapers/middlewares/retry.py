@@ -176,8 +176,16 @@ class RetryMiddleware(metaclass=BackwardsCompatibilityMetaclass):
         if not delay_s:
             return
 
+        try:
+            delay = float(delay_s)
+        except ValueError:
+            spider.logger.error("Invalid delay value %s on URL %s", delay_s, request.url)
+            return
+
+        spider.logger.info("Delaying request on URL %s by %d seconds", request.url, delay)
+
         deferred = Deferred()
-        reactor.callLater(delay_s, deferred.callback, None)
+        reactor.callLater(delay, deferred.callback, None)
         return deferred
 
     def process_response(
