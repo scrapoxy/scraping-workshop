@@ -7,9 +7,9 @@ class TrekkySpider(Spider):
     """This class manages all the logic required for scraping the Trekky website.
 
     Attributes:
-       name (str): The unique name of the spider.
-       start_url (str): Root of the website and first URL to scrape.
-       custom_settings (dict): Custom settings for the scraper
+        name (str): The unique name of the spider.
+        start_url (str): Root of the website and first URL to scrape.
+        custom_settings (dict): Custom settings for the scraper
     """
 
     name = "trekky"
