@@ -326,16 +326,16 @@ scrapy crawl trekky
 Data collection may fail due to **fingerprinting**.
 
 Use the Network Inspector in your browser to view all requests. 
-You will notice a new request appearing, which is a POST request instead of a GET request.
+You will notice a new request appearing, which is a **POST request** instead of a GET request.
 
 ![Chrome Network Inspector List](images/chrome-network-inspector-list.png)
 
-Inspect the website's code to identify the JavaScript that triggers this request.
+Inspect the website's code to identify the **JavaScript** that triggers this request.
 
 ![Chrome Network Inspector](images/chrome-network-inspector-initiator.png)
 
 It's clear that we need to **execute JavaScript**. 
-Simply using Scrapy to send HTTP requests is not enought.
+Simply using Scrapy to send HTTP requests is not enough.
 
 Also, it's important to maintain the **same IP address** throughout the session. 
 Scrapoxy offers a **sticky session** feature for this purpose when using a browser.
@@ -416,12 +416,19 @@ By inspecting the payload, you'll notice that the content is **encrypted**:
 
 Inspect the website's code to find the JavaScript responsible for sending this requests.
 In this case, the source code is obfuscated.
+
+Obfuscated code appears to be:
+
+```javascript
+var _qkrt1f=window,_uqvmii="tdN",_u5zh1i="UNM",_p949z3="on",_eu2jji="en",_vnsd5q="bto",_bi4e9="a",_f1e79r="e",_w13dld="ode",_vbg0l7="RSA-",_6uh486="ki"...
+```
+
 To understand which information is being sent and how to emulate it, we need to **deobfuscate the code**.
 
 
 ### Step 2: Deobfuscate the Javascript
 
-Copy/paste the code of this obfuscated script to `tools/obfuscated.js`.
+Copy/paste the source code of this obfuscated script to `tools/obfuscated.js`.
 
 And run the deobfucator script:
 
@@ -451,9 +458,10 @@ given that it's a straightforward obfuscated script.
             <image src="images/info.png">
         </td>
         <td>
-            <a href="https://github.com/features/copilot">GitHub Copilot</a> or
+            <a href="https://github.com/features/copilot">GitHub Copilot</a>
+            can be incredibly helpful in writing AST operations, just as
             <a href="https://claude.ai">Claude Sonnet 3.5</a>
-            can provide a huge assistance in writing AST operations.
+            is valuable for deciphering complex functions.
         </td>
     </tr>
 </table>
@@ -495,16 +503,16 @@ Now, you can implement the 3 AST operations:
 
 Here’s a summary of the script’s behavior:
 
-1. It collects WebGL information;
-2. It encrypts the data using RSA encryption with an obfuscated public key;
-3. It sends the payload to the webserver via a POST request.
+1. It collects **WebGL information**;
+2. It encrypts the data using **RSA encryption** with an obfuscated public key;
+3. It sends the payload to the webserver via a **POST request**.
 
-We need to do the same in our spider.
+We need to implement the same approach in our spider.
 
 Since we will be crafting the payload ourselves, there is **no need** to use Playwright anymore. 
 We will simply send the payload **before** initiating any requests.
 
-You can use the Python's `Crypto` and `base64` libraries.
+You can use the Python's `Crypto` and `base64` libraries:
 
 <table>
     <tr>
