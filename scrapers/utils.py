@@ -20,24 +20,26 @@ def date_to_timestamp(date: str) -> int | None:
 
 
 def print_failure(logger, failure):
-    if not failure.check(HttpError):
-        return
-    response = failure.value.response
-
-    text = remove_tags(response.text)
-
     message = f"\nURL: {failure.request.url}\n\n"
-    try:
-        if response.status == 429:
-            error = {
-                "message": "Too many requests",
-                "description": response.text
-            }
-        else:
-            error = json.loads(text)
 
-        message += f"Error: {error['message']}\n\nDetails: {error['description']}\n"
-    except json.JSONDecodeError:
-        message += text
+    if failure.check(HttpError):
+        response = failure.value.response
+
+        text = remove_tags(response.text)
+
+        try:
+            if response.status == 429:
+                error = {
+                    "message": "Too many requests",
+                    "description": response.text
+                }
+            else:
+                error = json.loads(text)
+
+            message += f"Error: {error['message']}\n\nDetails: {error['description']}\n"
+        except json.JSONDecodeError:
+            message += text
+    else:
+        message += f"Error: {failure.getErrorMessage()}\n"
 
     logger.error(f"\n{message}\n")
