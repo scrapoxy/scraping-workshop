@@ -174,7 +174,6 @@ Hint: It relates to HTTP request headers 😉
 
 <details>
     <summary>Soluce is here</summary>
-
     <a href="solutions/challenge-2.py">Open the soluce</a>
 </details>
 
@@ -310,7 +309,6 @@ Refer to [Scrapoxy's documentation](https://scrapoxy.io/intro/scrapoxy) to add t
 
 <details>
     <summary>Soluce is here</summary>
-
     <a href="solutions/challenge-4.py">Open the soluce</a>
 </details>
 
@@ -362,7 +360,6 @@ Our goal is to adapt the spider to integrate Playwright:
 
 <details>
     <summary>Soluce is here</summary>
-
     <a href="solutions/challenge-5.py">Open the soluce</a>
 </details>
 
@@ -387,7 +384,6 @@ Hint: It involves adjusting timezones 😉
 
 <details>
     <summary>Soluce is here</summary>
-
     <a href="solutions/challenge-6.py">Open the soluce</a>
 </details>
 
@@ -482,7 +478,6 @@ Now, you can implement the 3 AST operations:
 
 <details>
     <summary>Soluce is here</summary>
-
     <a href="solutions/challenge-7.js">Open the soluce</a>
 </details>
 
@@ -526,7 +521,6 @@ You can use the Python's `Crypto` and `base64` libraries.
 
 <details>
     <summary>Soluce is here</summary>
-
     <a href="solutions/challenge-8.py">Open the soluce</a>
 </details>
 
