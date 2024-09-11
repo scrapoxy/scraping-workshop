@@ -170,7 +170,7 @@ Data collection may fail due to **an anti-bot system**.
 
 Pay attention to the **messages** explaining why access is blocked and use this information to correct the scraper.
 
-Hint: It relates to HTTP request headers 😉 
+_Hint: It relates to HTTP request headers 😉_
 
 <details>
     <summary>Soluce is here</summary>
@@ -388,7 +388,7 @@ Anti-bot checks consistency across various layers of the browser stack.
 
 Try to solve these errors!
 
-Hint: It involves adjusting timezones 😉
+_Hint: It involves adjusting timezones 😉_
 
 <details>
     <summary>Soluce is here</summary>
