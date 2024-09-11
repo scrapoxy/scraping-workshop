@@ -443,7 +443,8 @@ given that it's a straightforward obfuscated script.
             <image src="images/info.png">
         </td>
         <td>
-            <a href="https://github.com/features/copilot">GitHub Copilot</a>
+            <a href="https://github.com/features/copilot">GitHub Copilot</a> or
+            <a href="https://claude.ai">Claude Sonnet 3.5</a>
             can provide a huge assistance in writing AST operations.
         </td>
     </tr>
