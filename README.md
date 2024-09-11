@@ -215,7 +215,7 @@ Follow this [guide](https://scrapoxy.io/intro/get-started).
 
 In the new project, deactivate `Intercept HTTPS requests with MITM`:
 
-![Scrapoxy New Project](images/scrapoxy-project-create.png)
+![Scrapoxy Project Create](images/scrapoxy-project-create.png)
 
 
 ### Step 3: Add a Cloud Provider connector
@@ -336,6 +336,14 @@ Inspect the website's code to identify the JavaScript that triggers this request
 
 It's clear that we need to **execute JavaScript**. 
 Simply using Scrapy to send HTTP requests is not enought.
+
+Also, it's important to maintain the **same IP address** throughout the session. 
+Scrapoxy offers a **sticky session** feature for this purpose when using a browser.
+
+Navigate to the Project options and enable both `Intercept HTTPS requests with MITM` 
+and `Keep the same proxy with cookie injection`:
+
+![Scrapoxy Project Update](images/scrapoxy-project-update.png)
 
 We will use the headless framework [Playwright](https://playwright.dev) along with Scrapy's plugin [scrapy-playwright](https://github.com/scrapy-plugins/scrapy-playwright).
 
