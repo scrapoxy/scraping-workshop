@@ -105,7 +105,6 @@ env.bak/
 venv.bak/
 .spyderproject
 .spyproject
-scrapoxy.json
 
 # Data
 results.csv
