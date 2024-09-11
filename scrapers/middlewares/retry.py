@@ -182,8 +182,6 @@ class RetryMiddleware(metaclass=BackwardsCompatibilityMetaclass):
             spider.logger.error("Invalid delay value %s on URL %s", delay_s, request.url)
             return
 
-        spider.logger.info("Delaying request on URL %s by %d seconds", request.url, delay)
-
         deferred = Deferred()
         reactor.callLater(delay, deferred.callback, None)
         return deferred
@@ -215,7 +213,9 @@ class RetryMiddleware(metaclass=BackwardsCompatibilityMetaclass):
     ) -> Optional[Request]:
         max_retry_times = request.meta.get("max_retry_times", self.max_retry_times)
         priority_adjust = request.meta.get("priority_adjust", self.priority_adjust)
-        delay = int(request.meta.get('delay_request_by', 0.5) * 2)
+        delay = int(request.meta.get('delay_request_by', 10) * 2)
+
+        spider.logger.info("Delaying request on URL %s by %d seconds", request.url, delay)
 
         return get_retry_request(
             request,

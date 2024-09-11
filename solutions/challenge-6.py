@@ -21,6 +21,11 @@ class TrekkySpider(Spider):
             "Connection": "close",
         },
 
+        "DOWNLOADER_MIDDLEWARES": {
+            'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+            'scrapers.middlewares.retry.RetryMiddleware': 550,
+        },
+
         "DOWNLOAD_HANDLERS": {
             "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
             "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",

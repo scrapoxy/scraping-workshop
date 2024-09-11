@@ -21,6 +21,11 @@ class TrekkySpider(Spider):
             "Connection": "close",
         },
 
+        "DOWNLOADER_MIDDLEWARES": {
+            'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+            'scrapers.middlewares.retry.RetryMiddleware': 550,
+        },
+
         # Replace the default Scrapy downloader with Playwright and Chrome to manage JavaScript content.
         "DOWNLOAD_HANDLERS": {
             "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
@@ -63,7 +68,7 @@ class TrekkySpider(Spider):
 
         # For the next requests, skip page rendering and download only the HTML content.
         self.request_meta["playwright_page_goto_kwargs"] = dict(
-            wait_until='commit'  #
+            wait_until='commit'
         )
 
         yield Request(
