@@ -132,7 +132,7 @@ The URL to scrape is: [https://trekky-reviews.com/level1](https://trekky-reviews
 
 The goal is to collect **names, emails, and reviews** for each accommodation listed.
 
-Open the file [`scrapers/spiders/trekky-reviews`](scrapers/spiders/trekky-reviews.py).
+Open the file [`scrapers/spiders/trekky-reviews`](scrapers/spiders/trekky.py).
 
 In Scrapy, a spider is a Python class with a unique name. Here, the name is `trekky`.
 
