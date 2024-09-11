@@ -1,6 +1,7 @@
 from scrapy import signals
 
 class InfoSpiderMiddleware:
+    ###This spider middleware class logs the number of scraped items when the spider is closed.###
     def __init__(self, stats):
         self.stats = stats
 

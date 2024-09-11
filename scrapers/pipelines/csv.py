@@ -5,6 +5,7 @@ import csv
 
 
 class SaveToCsvPipeline:
+    ###This pipeline class saves the scraped data to a CSV file named 'results.csv'.###
     _items = []
 
     @classmethod

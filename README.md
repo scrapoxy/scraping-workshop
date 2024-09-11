@@ -14,12 +14,12 @@ cd scraping-workshop
 
 ## Introduction
 
-The goal of this workshop is to understand how antibot protections work and how to bypass them.
+Our goal is to understand how anti-bot protections work and how to bypass them.
 
 I created a dedicated website for this workshop [https://trekky-reviews.com](https://trekky-reviews.com).
-This website provides a list of accommodations for every city, including reviews.
+This website provides a list of hotels for every city, including reviews.
 
-We will collect **name, email and reviews** for each accommodation.
+We will collect **name, email and reviews** for each hotel.
 
 During this workshop, we will use the following open-source software:
 
@@ -30,30 +30,22 @@ During this workshop, we will use the following open-source software:
 | [Playwright](https://playwright.dev) | the latest headless browser framework that integrates seamlessly with Scrapy |
 | [Babel.js](https://babeljs.io)       | a transpiler used for deobfuscation purposes                                 |
 
-<table>
-    <tr>
-        <td>
-            <img src="images/warning.png" />
-        </td>
-        <td>
-            Scrapoxy and Playwright are not working well together on Windows.
-            If you are using Windows, I recommend using a Linux VM or WSL.
-        </td>
-    </tr>
-</table>
-
-
-
-## File structure
-
 The scraper can be found at [scrapers/spiders/trekky.py](scrapers/spiders/trekky.py).
 
 All solutions are located in [solutions](solutions).
 If you have any difficulties implementing a solution, feel free to copy and paste it. 
 However, I recommend taking some time to search and explore to get the most out of the workshop, rather than rushing through it in 10 minutes.
 
+## Requirements
 
-## Installation
+### Operating System
+
+The recommended operating system is Ubuntu on Linux, though any Linux distribution or macOS will work.
+
+For Windows users, I recommend either using WSL2 with Ubuntu or running Ubuntu in a virtual machine.
+
+
+### Software
 
 Please make sure you have installed the following software:
 
@@ -64,7 +56,7 @@ Please make sure you have installed the following software:
 
 If you haven't installed these prerequisites yet, here's some guidance to help you get started:
 
-### Python
+#### Python
 
 *Linux*
 
@@ -72,14 +64,13 @@ On Linux, I suggest installing Python and its packages using standard package ma
 
 Creating a virtual environment is crucial to avoid mixing with your system's Python installation using this [guide](https://virtualenv.pypa.io/en/latest/user_guide.html).
 
-*Windows/Mac*
+*Mac*
 
-For Windows or Mac users, I recommend installing Python and managing environments through [Anaconda](https://www.anaconda.com/download).
+For Mac users, I recommend installing Python and managing environments through [Anaconda](https://www.anaconda.com/download).
 
 Create a virtual environment inside Anaconda for this workshop.
 
-
-### Python libraries
+#### Python libraries
 
 Open a shell and install libraries from `setup.py`:
 
@@ -88,7 +79,7 @@ pip install -r requirements.txt
 ```
 
 
-### Playwright
+#### Playwright
 
 After installing the python libraries, run the follow command:
 
@@ -97,12 +88,12 @@ playwright install
 ```
 
 
-### Node.js
+#### Node.js
 
 Install Node.js from the [official website](https://nodejs.org/en/download/) or through the version management [NVM](https://github.com/nvm-sh/nvm)
 
 
-### Node.js libraries
+#### Node.js libraries
 
 Open a shell and install libraries from `package.json`:
 
@@ -111,7 +102,7 @@ npm install
 ```
 
 
-### Scrapoxy
+#### Scrapoxy
 
 If you already have docker, just run
 
@@ -126,15 +117,15 @@ npm install -g scrapoxy
 ```
 
 
-## Challenge 1: Create your first Scraper
+## Challenge 1: Run your first Scraper
 
 The URL to scrape is: [https://trekky-reviews.com/level1](https://trekky-reviews.com/level1)
 
-The goal is to collect **names, emails, and reviews** for each accommodation listed.
+Our goal is to collect **names, emails, and reviews** for each hotel listed.
 
-Open the file [`scrapers/spiders/trekky-reviews`](scrapers/spiders/trekky.py).
+Open the file [`scrapers/spiders/trekky.py`](scrapers/spiders/trekky.py).
 
-In Scrapy, a spider is a Python class with a unique name. Here, the name is `trekky`.
+In Scrapy, a spider is a Python class with a unique `name` property. Here, the name is `trekky`.
 
 The spider class includes a method called `start_requests`, which defines the initial URLs to scrape. 
 When a URL is fetched, the Scrapy engine triggers a callback function. 
@@ -144,12 +135,8 @@ It's also possible to generate new requests from within the callback function, a
 The structure of items is defined in the file [`scrapers/items.py`](scrapers/items.py). 
 Each item type is represented by a dataclass containing fields and a loader:
 
-* `HotelItem`: name, email, review
-* `HotelItemLoader`: loader for HotelItem
-* `ReviewItem`: rating
-* `ReviewItemLoader`: loader for ReviewItem
-
-Now, fill the different parts of the spider.
+* `HotelItem`: name, email, review with the loader `HotelItemLoader`
+* `ReviewItem`: rating with the loader `ReviewItemLoader`
 
 To run the spider, open a terminal at the project's root directory and run the following command:
 
@@ -157,7 +144,7 @@ To run the spider, open a terminal at the project's root directory and run the f
 scrapy crawl trekky
 ```
 
-Scrapy collects data from **50 accommodations**:
+Scrapy will collect data from **50 hotels**:
 
 ```text
 2024-07-05 23:11:43 [trekky] INFO: 
@@ -166,10 +153,10 @@ We got: 50 items
 
 ```
 
-Check the file `results.csv` to ensure all items were correctly collected.
+Check the `results.csv` file to confirm that all items were collected.
 
 
-## Challenge 2: First antibot protection
+## Challenge 2: First Anti-Bot protection
 
 The URL to scrape is: [https://trekky-reviews.com/level2](https://trekky-reviews.com/level2)
 
@@ -179,9 +166,17 @@ Update the URL in your scraper to target the new page and execute the spider:
 scrapy crawl trekky
 ```
 
-The data collection may fail due to **an anti-bot system**.
+Data collection may fail due to **an anti-bot system**.
 
 Pay attention to the **messages** explaining why access is blocked and use this information to correct the scraper.
+
+Hint: It relates to HTTP request headers 😉 
+
+<details>
+    <summary>Soluce is here</summary>
+
+    [Open the soluce](solutions/challenge-2.py)
+</details>
 
 
 ## Challenge 3: Rate limit
@@ -194,7 +189,7 @@ Update the URL in your scraper to target the new page and execute the spider:
 scrapy crawl trekky
 ```
 
-The data collection may fail due to **rate limiting**.
+Data collection might fail due to **rate limiting** on our IP address.
 
 <table>
     <tr>
@@ -204,13 +199,13 @@ The data collection may fail due to **rate limiting**.
         <td>
             Please don't adjust the delay between requests or the number of concurrent requests; <b>that is not our goal</b>. 
             Imagine we need to collect millions of items within a few hours, and delaying our scraping session is not an option. 
-            Instead, we will use proxies.
+            Instead, we will use proxies to distribute requests across multiple IP addresses.
         </td>
     </tr>
 </table>
 
-
 Use [Scrapoxy](https://scrapoxy.io) to bypass the rate limit with a cloud provider (not a proxy service).
+
 
 ### Step 1: Install Scrapoxy
 
@@ -276,6 +271,12 @@ Run your spider and check that Scrapoxy is handling the requests:
 
 You should observe an increase in the count of received and sent requests.
 
+<details>
+    <summary>Soluce is here</summary>
+
+    [Open the soluce](solutions/challenge-3.py)
+</details>
+
 
 ## Challenge 4: IP Detection
 
@@ -287,17 +288,15 @@ Update the URL in your scraper to target the new page and execute the spider:
 scrapy crawl trekky
 ```
 
-The data collection may fail due to **basic proxies**.
+Data collection might fail due to the use of **datacenter proxies**.
 
-Datacenter proxies from cloud providers are **often detected** easily by commercial anti-bot systems.
-To overcome this, we require more advanced proxies.
+Datacenter proxies from cloud providers are **frequently detected** by commercial anti-bot systems.
+To bypass this, we need more sophisticated proxies.
 
-Scrapoxy supports many connectors for different proxy services.
-Today, we will integrate one of these services, which has provided free credits for this workshop.
+Scrapoxy offers support for many connectors to different proxy services. 
+Today, we will integrate one of these services, which has provided free credits for the workshop.
 
 Refer to [Scrapoxy's documentation](https://scrapoxy.io/intro/scrapoxy) to add this provider.
-
-Proxies will be removed after the workshop unless you ask me :)
 
 <table>
     <tr>
@@ -310,6 +309,12 @@ Proxies will be removed after the workshop unless you ask me :)
     </tr>
 </table>
 
+<details>
+    <summary>Soluce is here</summary>
+
+    [Open the soluce](solutions/challenge-4.py)
+</details>
+
 
 ## Challenge 5: Fingerprint
 
@@ -321,21 +326,21 @@ Update the URL in your scraper to target the new page and execute the spider:
 scrapy crawl trekky
 ```
 
-The data collection may fail due to **fingerprinting**.
+Data collection may fail due to **fingerprinting**.
 
 Use the Network Inspector in your browser to view all requests. 
-You will observe a new request appearing that is not a GET request, but rather a POST request:
+You will notice a new request appearing, which is a POST request instead of a GET request.
 
 ![Chrome Network Inspector List](images/chrome-network-inspector-list.png)
 
-Inspect the website's code to locate the JavaScript responsible for sending this request:
+Inspect the website's code to identify the JavaScript that triggers this request.
 
 ![Chrome Network Inspector](images/chrome-network-inspector-initiator.png)
 
-Now, it's obvious that we need to execute JavaScript. 
-Relying solely on Scrapy to send HTTP requests is not enough.
+It's clear that we need to **execute JavaScript**. 
+Simply using Scrapy to send HTTP requests is not enought.
 
-To achieve this, we'll use the headless framework [Playwright](https://playwright.dev) along with Scrapy's plugin [scrapy-playwright](https://github.com/scrapy-plugins/scrapy-playwright).
+We will use the headless framework [Playwright](https://playwright.dev) along with Scrapy's plugin [scrapy-playwright](https://github.com/scrapy-plugins/scrapy-playwright).
 
 <table>
     <tr>
@@ -348,13 +353,19 @@ To achieve this, we'll use the headless framework [Playwright](https://playwrigh
     </tr>
 </table>
 
-The goal is to adjust the spider to include Playwright:
+Our goal is to adapt the spider to integrate Playwright:
 
-* Modify the settings to include a specific `DOWNLOAD_HANDLERS`.
+* Update the settings to include a custom `DOWNLOAD_HANDLERS`.
 * Configure Playwright sessions `PLAYWRIGHT_LAUNCH_OPTIONS` to:
-  * Disable headless mode (you can understand what Playwright is doing)
-  * Use proxy (traffic is redirected to Scrapoxy) 
-* Add metadata to each request to enable Playwright and disregard HTTPS errors (with `ignore_https_errors`).
+  * Disable headless mode (allowing you to see Playwright's actions)
+  * Use a proxy (redirecting traffic through Scrapoxy)
+* Attach metadata to each request to enable Playwright and ignore HTTPS errors (using ignore_https_errors).
+
+<details>
+    <summary>Soluce is here</summary>
+
+    [Open the soluce](solutions/challenge-5.py)
+</details>
 
 
 ## Challenge 6: Consistency
@@ -367,11 +378,19 @@ Update the URL in your scraper to target the new page and execute the spider:
 scrapy crawl trekky
 ```
 
-You will notice that the data collection may fail due to **inconsistency** errors.
+You will notice that data collection may fail due to **inconsistency** errors.
 
 Anti-bot checks consistency across various layers of the browser stack.
 
-Try to resolve these errors.
+Try to solve these errors!
+
+Hint: It involves adjusting timezones 😉
+
+<details>
+    <summary>Soluce is here</summary>
+
+    [Open the soluce](solutions/challenge-6.py)
+</details>
 
 
 ## Challenge 7: Deobfuscation
@@ -384,8 +403,11 @@ Update the URL in your scraper to target the new page and execute the spider:
 scrapy crawl trekky
 ```
 
-Use the Network Inspector to examine all requests. 
-Within the list, you'll find some unusual requests. If you inspect the payload, you'll notice that the content is encrypted:
+### Step 1: Find the Anti-Bot Javascript
+
+Use the **Network Inspector** to review all requests.
+Among them, you'll spot some unusual ones. 
+By inspecting the payload, you'll notice that the content is **encrypted**:
 
 ![Chrome Network Inspector - List 2](images/chrome-network-inspector-list2.png)
 
@@ -393,16 +415,19 @@ Inspect the website's code to find the JavaScript responsible for sending this r
 In this case, the source code is obfuscated.
 To understand which information is being sent and how to emulate it, we need to **deobfuscate the code**.
 
+
+### Step 2: Deobfuscate the Javascript
+
 Copy/paste the code of this obfuscated script to `tools/obfuscated.js`.
 
-Run the deobfucator script:
+And run the deobfucator script:
 
 ```shell
 node tools/deobfuscate.js
 ```
 
-This script currently performs no operations. 
-Our goal is to add tree operations to transform and deobfuscate the code.
+This script currently doesn't perform any operations.
+Our goal is to add [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree) operations to transform and deobfuscate the code.
 
 <table>
     <tr>
@@ -450,25 +475,31 @@ AST Explorer parses the source code and generates a visual tree:
     </tr>
 </table>
 
-Now, you should write 3 steps:
+Now, you can implement the 3 AST operations:
 
 * **Constant Unfolding**: replace all constants with their respective string values;
 * **String Join**: combine strings that have been split into multiple parts;
 * **Dot Notation**: convert string notation into dot notation.
 
+<details>
+    <summary>Soluce is here</summary>
+
+    [Open the soluce](solutions/challenge-7.js)
+</details>
+
 
 ## Challenge 8: Payload generation
 
-Now that you understand the script's behavior:
+Here’s a summary of the script’s behavior:
 
 1. It collects WebGL information;
-2. It encrypts data with RSA encryption using an obfuscated public key;
-3. It sends the payload to the webserver through a POST request.
+2. It encrypts the data using RSA encryption with an obfuscated public key;
+3. It sends the payload to the webserver via a POST request.
 
 We need to do the same in our spider.
 
 Since we will be crafting the payload ourselves, there is **no need** to use Playwright anymore. 
-We will simply send the payload before initiating any requests.
+We will simply send the payload **before** initiating any requests.
 
 You can use the Python's `Crypto` and `base64` libraries.
 
@@ -494,6 +525,12 @@ You can use the Python's `Crypto` and `base64` libraries.
     </tr>
 </table>
 
+<details>
+    <summary>Soluce is here</summary>
+
+    [Open the soluce](solutions/challenge-8.py)
+</details>
+
 
 ## Conclusion
 
@@ -503,8 +540,6 @@ Your feedback is incredibly valuable to me.
 Please take a moment to complete this survey; your insights will greatly assist in enhancing future workshops:
 
 👉 [GO TO SURVEY](https://bit.ly/scwsv) 👈
-
-If you wish to keep your proxy service account, please reach out to me. I will ask them to not close the account within the next hour.
 
 
 ## Licence
