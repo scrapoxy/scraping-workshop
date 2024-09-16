@@ -28,40 +28,42 @@ If you have any difficulties implementing a solution, feel free to copy and past
 However, I recommend taking some time to search and explore to get the most out of the workshop, rather than rushing through it in 10 minutes.
 
 
-## Requirements
+## Preflight Checklist
 
-To simplify the installation process, I have pre-configured an Ubuntu virtual machine for you.
+### VirtualBox
 
-You can download it [from the following link](https://bit.ly/scwsfiles).
+To simplify the installation process, 
+I've pre-configured an Ubuntu virtual machine for you with 
+Chrome, VSCode, Python, Node.js, Playwright, 
+and all the necessary dependencies for this workshop.
+
+You can download it **[from this link](https://bit.ly/scwsfiles).**
 
 The virtual machine is in OVA format and can be easily imported into [VirtualBox](https://www.virtualbox.org) or [VMware](https://www.vmware.com).
 
-
-### Step 1: Install VirtualBox
-
-Please start by installing VirtualBox. 
 I have also included the installation binaries for Ubuntu Linux, macOS, and Windows.
 
+_Note: If the network is too slow, I have USB drives available with the VM._
 
-### Step 2: Import the OVA appliance
+Click on `Import Appliance` and choose the OVA file you downloaded.
+The VM requires 8 Go RAM and 2 vCPU.
 
-The minimum system requirements are:
-- RAM: 8 Go
-- vCPU: 2
-
-Additionally, I recommend switching the network setting from NAT to **Bridge Adapter** for improved performance.
+I recommend switching the network setting from NAT to **Bridge Adapter** for improved performance.
 
 
 ### Linux
 
-If you prefer to use Linux without a virtual machine, ensure you have the following software installed:
+If you still prefer to use Linux without a virtual machine, ensure you have the following software installed:
 
 - Python (version 3 or higher) along with virtualenv
 - Node.js (version 20 or higher)
 - Docker
 
 
-## Workshop Installation
+## Setting up
+
+This step is necessary even if you are using the VM.
+
 
 ### Step 1: Clone the Repository
 
