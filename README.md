@@ -2,15 +2,6 @@
 
 ![Header](header.jpg)
 
-## Clone the repository
-
-First, clone this repository:
-
-```shell
-git clone https://github.com/fabienvauchelles/scraping-workshop.git
-cd scraping-workshop
-```
-
 
 ## Introduction
 
@@ -36,64 +27,76 @@ All solutions are located in [solutions](solutions).
 If you have any difficulties implementing a solution, feel free to copy and paste it. 
 However, I recommend taking some time to search and explore to get the most out of the workshop, rather than rushing through it in 10 minutes.
 
+
 ## Requirements
 
-### Operating System
+To simplify the installation process, I have pre-configured an Ubuntu virtual machine for you.
 
-The recommended operating system is **Ubuntu on Linux**, though any Linux distribution or macOS will work.
+You can download it [from the following link](https://bit.ly/scwsfiles).
 
-For Windows users, I recommend either **using WSL2** with Ubuntu or running Ubuntu in a virtual machine.
+The virtual machine is in OVA format and can be easily imported into [VirtualBox](https://www.virtualbox.org) or [VMware](https://www.vmware.com).
 
 
-### Software
+### Step 1: Install VirtualBox
 
-Please make sure you have installed the following software:
+Please start by installing VirtualBox. 
+I have also included the installation binaries for Ubuntu Linux, macOS, and Windows.
 
-- Python (version 3 or higher) with virtualenv
+
+### Step 2: Import the OVA appliance
+
+The minimum system requirements are:
+- RAM: 8 Go
+- vCPU: 2
+
+Additionally, I recommend switching the network setting from NAT to **Bridge Adapter** for improved performance.
+
+
+### Linux
+
+If you prefer to use Linux without a virtual machine, ensure you have the following software installed:
+
+- Python (version 3 or higher) along with virtualenv
 - Node.js (version 20 or higher)
-- Scrapoxy (with Docker)
-- Playwright
+- Docker
 
-If you haven't installed these prerequisites yet, here's some guidance to help you get started:
 
-#### Python
+## Workshop Installation
 
-*Linux*
+### Step 1: Clone the Repository
 
-On Linux, I suggest installing Python and its packages using standard package management tools like `python3-pip` for Ubuntu. 
+Clone this repository:
 
-Creating a virtual environment is crucial to avoid mixing with your system's Python installation using this [guide](https://virtualenv.pypa.io/en/latest/user_guide.html).
+```shell
+git clone https://github.com/fabienvauchelles/scraping-workshop.git
+cd scraping-workshop
+```
 
-*Mac*
 
-For Mac users, I recommend installing Python and managing environments through [Anaconda](https://www.anaconda.com/download).
+#### Step 2: Install Python libraries
 
-Create a virtual environment inside Anaconda for this workshop.
-
-#### Python libraries
-
-Open a shell and install libraries from `setup.py`:
+Open a shell and install libraries:
 
 ```shell
 pip install -r requirements.txt
 ```
 
 
-#### Playwright
+#### Step 3: Install Playwright
 
-After installing the python libraries, run the follow command:
+After installing the Python libraries, run the follow command:
 
 ```shell
 playwright install --with-deps chromium
 ```
 
 
-#### Node.js
+#### Step 4: Install Node.js
 
 Install Node.js from the [official website](https://nodejs.org/en/download/) or through the version management [NVM](https://github.com/nvm-sh/nvm)
 
 
-#### Node.js libraries
+#### Step 5: Install Node.js libraries
 
 Open a shell and install libraries from `package.json`:
 
@@ -102,18 +105,12 @@ npm install
 ```
 
 
-#### Scrapoxy
+#### Step 6: Scrapoxy
 
-If you already have docker, just run
+Run the following command to download Scrapoxy:
 
 ```shell
 sudo docker pull fabienvauchelles/scrapoxy
-```
-
-Otherwise, use NPM to install Scrapoxy:
-
-```shell
-npm install -g scrapoxy
 ```
 
 
