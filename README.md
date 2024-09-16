@@ -84,7 +84,7 @@ pip install -r requirements.txt
 After installing the python libraries, run the follow command:
 
 ```shell
-playwright install --with-deps
+playwright install --with-deps chromium
 ```
 
 
