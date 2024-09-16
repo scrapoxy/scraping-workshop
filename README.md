@@ -84,7 +84,7 @@ pip install -r requirements.txt
 After installing the python libraries, run the follow command:
 
 ```shell
-playwright install
+playwright install --with-deps
 ```
 
 
@@ -107,7 +107,7 @@ npm install
 If you already have docker, just run
 
 ```shell
-docker pull fabienvauchelles/scrapoxy
+sudo docker pull fabienvauchelles/scrapoxy
 ```
 
 Otherwise, use NPM to install Scrapoxy:
@@ -211,7 +211,7 @@ Use [Scrapoxy](https://scrapoxy.io) to bypass the rate limit with a cloud provid
 Follow this [guide](https://scrapoxy.io/intro/get-started) or run the following command in the project directory:
 
 ```shell
-docker run -p 8888:8888 -p 8890:8890 -e AUTH_LOCAL_USERNAME=admin -e AUTH_LOCAL_PASSWORD=password -e BACKEND_JWT_SECRET=secret1 -e FRONTEND_JWT_SECRET=secret2 -e STORAGE_FILE_FILENAME=/scrapoxy.json -v ./scrapoxy.json:/scrapoxy.json fabienvauchelles/scrapoxy:latest
+sudo docker run -p 8888:8888 -p 8890:8890 -e AUTH_LOCAL_USERNAME=admin -e AUTH_LOCAL_PASSWORD=password -e BACKEND_JWT_SECRET=secret1 -e FRONTEND_JWT_SECRET=secret2 -e STORAGE_FILE_FILENAME=/scrapoxy.json -v ./scrapoxy.json:/scrapoxy.json fabienvauchelles/scrapoxy:latest
 ```
 
 
