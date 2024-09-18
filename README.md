@@ -30,7 +30,7 @@ However, I recommend taking some time to search and explore to get the most out 
 
 ## Preflight Checklist
 
-### VirtualBox (Linux, Windows, MacOS Intel)
+### VirtualBox (Linux and Windows)
 
 To simplify the installation process,
 I've pre-configured an Ubuntu virtual machine for you with
@@ -66,7 +66,7 @@ I recommend switching the network setting from NAT to **Bridge Adapter** for imp
 _Note: If the network is too slow, I have USB drives available with the VM._
 
 
-### MacOS M1 (or full installation)
+### MacOS (or full installation)
 
 You can manually install the required dependencies, which include:
 
