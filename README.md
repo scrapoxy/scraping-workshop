@@ -34,21 +34,30 @@ However, I recommend taking some time to search and explore to get the most out 
 
 To simplify the installation process, 
 I've pre-configured an Ubuntu virtual machine for you with 
-Chrome, VSCode, Python, Node.js, Playwright, 
-and all the necessary dependencies for this workshop.
+all the necessary dependencies for this workshop.
 
 You can download it **[from this link](https://bit.ly/scwsfiles).**
 
-The virtual machine is in OVA format and can be easily imported into [VirtualBox](https://www.virtualbox.org) or [VMware](https://www.vmware.com).
+The VM requires 8 Go RAM and 2 vCPU.
 
-I have also included the installation binaries for Ubuntu Linux, macOS, and Windows.
+Credentials are: `vboxguest / changeme`.
 
 _Note: If the network is too slow, I have USB drives available with the VM._
 
+
+#### VirtualBox - Linux & Windows
+
+The virtual machine is in OVA format and can be easily imported into [VirtualBox](https://www.virtualbox.org) or [VMware](https://www.vmware.com).
+
 Click on `Import Appliance` and choose the OVA file you downloaded.
-The VM requires 8 Go RAM and 2 vCPU.
 
 I recommend switching the network setting from NAT to **Bridge Adapter** for improved performance.
+
+#### VirtualBox - MacOS M1
+
+I create an ARM64 version of the VM for MacOS M1 (experimental).
+
+The VM is a zipped Virtualbox VM. You can unzip it and open it with Virtualbox.
 
 
 ### Linux
