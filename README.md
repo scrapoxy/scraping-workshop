@@ -30,43 +30,53 @@ However, I recommend taking some time to search and explore to get the most out 
 
 ## Preflight Checklist
 
-### VirtualBox
+### VirtualBox (Linux, Windows, MacOS Intel)
 
-To simplify the installation process, 
-I've pre-configured an Ubuntu virtual machine for you with 
+To simplify the installation process,
+I've pre-configured an Ubuntu virtual machine for you with
 all the necessary dependencies for this workshop.
+
+<table>
+    <tr>
+        <td>
+            <img src="images/warning.png" />
+        </td>
+        <td>
+This virtual machine is compatible only with AMD64 architecture (Linux, Windows, and Intel-based MacOS).
+            
+For MacOS M1 (ARM64), please manually install the dependencies. 
+
+On Windows, avoid using WSL2 (it doesn't work with Playwright)
+        </td>
+    </tr>
+</table>
 
 You can download it **[from this link](https://bit.ly/scwsfiles).**
 
-The VM requires 8 Go RAM and 2 vCPU.
+The virtual machine is in OVA format and can be easily imported into [VirtualBox](https://www.virtualbox.org).
+
+It requires 8 Go RAM and 2 vCPU.
+
+Click on `Import Appliance` and choose the OVA file you downloaded.
 
 Credentials are: `vboxguest / changeme`.
+
+I recommend switching the network setting from NAT to **Bridge Adapter** for improved performance.
 
 _Note: If the network is too slow, I have USB drives available with the VM._
 
 
-#### VirtualBox - Linux & Windows
+### MacOS M1 (or full installation)
 
-The virtual machine is in OVA format and can be easily imported into [VirtualBox](https://www.virtualbox.org) or [VMware](https://www.vmware.com).
+You can manually install the required dependencies, which include:
 
-Click on `Import Appliance` and choose the OVA file you downloaded.
-
-I recommend switching the network setting from NAT to **Bridge Adapter** for improved performance.
-
-#### VirtualBox - MacOS M1
-
-I create an ARM64 version of the VM for MacOS M1 (experimental).
-
-The VM is a zipped Virtualbox VM. You can unzip it and open it with Virtualbox.
-
-
-### Linux
-
-If you still prefer to use Linux without a virtual machine, ensure you have the following software installed:
-
-- Python (version 3 or higher) along with virtualenv
+- Python (version 3 or higher) with virtualenv
 - Node.js (version 20 or higher)
 - Docker
+
+You can download Node.js from: https://nodejs.org/en/download
+
+For Python, you can use Anaconda: https://www.anaconda.com/download
 
 
 ## Setting up
