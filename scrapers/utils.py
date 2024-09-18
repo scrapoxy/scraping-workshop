@@ -6,13 +6,13 @@ import re
 import json
 
 
-def remove_whitespace(text: str) -> str:
+def remove_whitespace(text):
     text = text.replace('\n', ' ').replace('\r', '')
     text = re.sub(r'\s+', ' ', text)
     return text.strip()
 
 
-def date_to_timestamp(date: str) -> int | None:
+def date_to_timestamp(date):
     try:
         return int(datetime.strptime(date.strip(), '%b %d, %Y, %I:%M %p').timestamp() * 1000)
     except ValueError:
