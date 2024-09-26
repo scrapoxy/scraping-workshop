@@ -42,9 +42,9 @@ all the necessary dependencies for this workshop.
             <img src="images/warning.png" />
         </td>
         <td>
-This virtual machine is compatible only with AMD64 architecture (Linux, Windows, and Intel-based MacOS).
+This virtual machine is compatible only with AMD64 architecture (Linux, Windows, and Intel-based macOS).
             
-For MacOS M1 (ARM64), please manually install the dependencies. 
+For macOS M1 (ARM64), please manually install the dependencies. 
 
 On Windows, avoid using WSL2 (it doesn't work with Playwright)
         </td>
@@ -66,7 +66,7 @@ I recommend switching the network setting from NAT to **Bridge Adapter** for imp
 _Note: If the network is too slow, I have USB drives available with the VM._
 
 
-### MacOS (or full installation)
+### Full Installation (Linux, Windows, and macOS)
 
 You can manually install the required dependencies, which include:
 
@@ -94,7 +94,7 @@ cd scraping-workshop
 ```
 
 
-#### Step 2: Install Python libraries
+### Step 2: Install Python libraries
 
 Open a shell and install libraries:
 
@@ -103,7 +103,7 @@ pip install -r requirements.txt
 ```
 
 
-#### Step 3: Install Playwright
+### Step 3: Install Playwright
 
 After installing the Python libraries, run the follow command:
 
@@ -112,12 +112,12 @@ playwright install --with-deps chromium
 ```
 
 
-#### Step 4: Install Node.js
+### Step 4: Install Node.js
 
 Install Node.js from the [official website](https://nodejs.org/en/download/) or through the version management [NVM](https://github.com/nvm-sh/nvm)
 
 
-#### Step 5: Install Node.js libraries
+### Step 5: Install Node.js libraries
 
 Open a shell and install libraries from `package.json`:
 
@@ -126,7 +126,7 @@ npm install
 ```
 
 
-#### Step 6: Scrapoxy
+### Step 6: Scrapoxy
 
 Run the following command to download Scrapoxy:
 

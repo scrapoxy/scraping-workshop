@@ -36,39 +36,36 @@ class TrekkySpider(Spider):
     }
 
     def start_requests(self):
-        """This method initiates the web crawler's initial requests, starting by navigating to the website's
-        homepage."""
-        yield Request(
-            url=self.start_url,
-            callback=self.parse,
-            errback=self.errback,
-        )
-
-    def parse(self, response):
-        """After accessing the website's homepage, we retrieve the list of hotels in Paris."""
-        yield Request(
-            url=response.urljoin("cities?city=paris"),
-            callback=self.parse_hotels,
-            errback=self.errback,
-        )
-
-    def parse_hotels(self, response):
-        """This method parses the list of hotels in Paris and also handles pagination."""
-
-        # Pagination
-        for el in response.css('.pagination li a'):
-            yield response.follow(
-                url=el,
-                callback=self.parse_hotels,
+        """This method start 10 separate sessions on the homepage, one per page."""
+        for page in range(1, 10):
+            yield Request(
+                url=self.start_url,
+                callback=self.parse,
                 errback=self.errback,
+                dont_filter=True,
+                meta=dict(
+                    page=page,
+                    cookiejar=str(page),
+                ),
             )
 
-        # Hotel links
+    def parse(self, response):
+        """After accessing the website's homepage, we retrieve the list of hotels in Paris from page X."""
+        yield Request(
+            url=response.urljoin("cities?city=paris&page=%d" % response.meta['page']),
+            callback=self.parse_listing,
+            errback=self.errback,
+            meta=response.meta,
+        )
+
+    def parse_listing(self, response):
+        """This method parses the list of hotels in Paris from page X."""
         for el in response.css('.hotel-link'):
             yield response.follow(
                 url=el,
                 callback=self.parse_hotel,
                 errback=self.errback,
+                meta=response.meta,
             )
 
     def parse_hotel(self, response):

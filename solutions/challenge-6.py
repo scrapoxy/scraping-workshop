@@ -14,7 +14,7 @@ class TrekkySpider(Spider):
 
     name = "trekky"
 
-    start_url = "https://trekky-reviews.com/level7"
+    start_url = "https://trekky-reviews.com/level6"
 
     custom_settings = {
         "DEFAULT_REQUEST_HEADERS": {
@@ -26,11 +26,13 @@ class TrekkySpider(Spider):
             'scrapers.middlewares.retry.RetryMiddleware': 550,
         },
 
+        # Replace the default Scrapy downloader with Playwright and Chrome to manage JavaScript content.
         "DOWNLOAD_HANDLERS": {
             "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
             "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
         },
 
+        # Set up Playwright to launch the browser in headful mode using Scrapoxy.
         "PLAYWRIGHT_LAUNCH_OPTIONS": {
             "headless": False,
             "proxy": {
@@ -41,69 +43,65 @@ class TrekkySpider(Spider):
         }
     }
 
-    request_meta = dict(
-        playwright=True,
-        playwright_include_page=True,
-        playwright_context_kwargs=dict(
-            ignore_https_errors=True,
-            timezone_id='America/Chicago',  # Sync the timezone with the proxy's location.
-        ),
-    )
-
     def start_requests(self):
-        """This method initiates the web crawler's initial requests, starting by navigating to the website's
-        homepage."""
-        yield Request(
-            url=self.start_url,
-            callback=self.parse,
-            errback=self.errback,
-            meta=self.request_meta,
-        )
-
-    async def parse(self, response):
-        """After accessing the website's homepage, we retrieve the list of hotels in Paris."""
-        await response.meta["playwright_page"].close()
-
-        self.request_meta["playwright_page_goto_kwargs"] = dict(
-            wait_until='commit'
-        )
-
-        yield Request(
-            url=response.urljoin("cities?city=paris"),
-            callback=self.parse_hotels,
-            errback=self.errback,
-            meta=self.request_meta,
-        )
-
-    async def parse_hotels(self, response):
-        """This method parses the list of hotels in Paris and also handles pagination."""
-        await response.meta["playwright_page"].close()
-
-        # Pagination
-        for el in response.css('.pagination li a'):
-            yield response.follow(
-                url=el,
-                callback=self.parse_hotels,
+        """This method start 10 separate sessions on the homepage, one per page."""
+        for page in range(1, 10):
+            yield Request(
+                url=self.start_url,
+                callback=self.parse,
                 errback=self.errback,
-                meta={
-                    **self.request_meta,
-                }
+                dont_filter=True,
+                meta=dict(
+                    # Enable Playwright
+                    playwright=True,
+                    # Include the Playwright page object in the response
+                    playwright_include_page=True,
+                    playwright_context_kwargs=dict(
+                        # Ignore HTTPS errors
+                        ignore_https_errors=True,
+                        # Sync the timezone with the proxy's location.
+                        timezone_id='America/Chicago',
+                    ),
+                    page=page,
+                    cookiejar=str(page),
+                ),
             )
 
-        # Hotel links
+    async def parse(self, response):
+        """After accessing the website's homepage, we retrieve the list of hotels in Paris from page X."""
+        await response.meta["playwright_page"].close()
+        del response.meta["playwright_page"]
+
+        yield Request(
+            url=response.urljoin("cities?city=paris&page=%d" % response.meta['page']),
+            callback=self.parse_listing,
+            errback=self.errback,
+            meta=dict(
+                **response.meta,
+                playwright_page_goto_kwargs=dict(
+                    # For the next requests, skip page rendering and download only the HTML content.
+                    wait_until='commit',
+                )
+            )
+        )
+
+    async def parse_listing(self, response):
+        """This method parses the list of hotels in Paris from page X."""
+        await response.meta["playwright_page"].close()
+        del response.meta["playwright_page"]
+
         for el in response.css('.hotel-link'):
             yield response.follow(
                 url=el,
                 callback=self.parse_hotel,
                 errback=self.errback,
-                meta={
-                    **self.request_meta,
-                }
+                meta=response.meta,
             )
 
     async def parse_hotel(self, response):
         """This method parses hotel details such as name, email, and reviews."""
         await response.meta["playwright_page"].close()
+        del response.meta["playwright_page"]
 
         reviews = [self.get_review(review_el) for review_el in response.css('.hotel-review')]
 
@@ -122,4 +120,6 @@ class TrekkySpider(Spider):
     async def errback(self, failure):
         """This method handles and logs errors and is invoked with each request."""
         print_failure(self.logger, failure)
-        await failure.request.meta["playwright_page"].close()
+        page = failure.request.meta.get("playwright_page")
+        if page:
+            await page.close()

@@ -1,31 +1,10 @@
-from base64 import b64encode
 from scrapy import FormRequest, Request, Spider
 from scrapers.items import HotelItemLoader, ReviewItemLoader
-from scrapers.utils import print_failure
+from scrapers.utils import print_failure, rsa_encrypt
 from urllib.parse import urljoin
-from Crypto.Cipher import PKCS1_OAEP
-from Crypto.Hash import SHA256
-from Crypto.PublicKey import RSA
 
 import json
 
-# TODO: move the complexity in a utility class
-
-# The public key is extracted from the deobfuscated JavaScript code of the website's antibot.
-public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApgjwxZd4I6YnOE1GGCdnKIatX71CyGpssvAAH7udNLcBVr0WzIP1t+KZ7mDzLMyZE9MJmSsEgKidzaVRikarUQ6MUWnyJQxe8DlUNrSmK4ZrnLBD/5rVBcepZo1mPj1MdQWie4AYHUt++lLpPrXqEJ7xugSGIt7ORVGgcKO5ku5RSS1Ssy5iUhYtQo4VCb2UxYuMbpt2YF8LOaR8KtPIQENtNH2Jj7akQTna4I5lixOB0jme03lR5n94SqACUAZ+rFBDKgrC9eVWX8xdfMERxcKuD9NxFCV65tdNiH64CHWaDU13j9v2XGHKFkEORgRn+RQBintX5fEqt7GTTIzvoQIDAQAB"
-
-# Convert the public key into PEM format for use in RSA encryption.
-pem_key = f"-----BEGIN PUBLIC KEY-----\n{public_key}\n-----END PUBLIC KEY-----"
-rsa_public_key = RSA.importKey(pem_key)
-rsa_public_key = PKCS1_OAEP.new(rsa_public_key, hashAlgo=SHA256)
-
-
-def rsa_encrypt(message):
-    """Use RSA public key encryption to encrypt the message."""
-    message = str.encode(message)
-    encrypted_text = rsa_public_key.encrypt(message)
-    encrypted_text_b64 = b64encode(encrypted_text)
-    return encrypted_text_b64
 
 def build_payload():
     """Build the encrypted payload to send to the server."""
@@ -33,7 +12,11 @@ def build_payload():
         "vendor": "Intel",
         "renderer": "Intel Iris OpenGL Engine",
     })
-    payload_encoded = rsa_encrypt(payload)
+
+    # The public key is extracted from the deobfuscated JavaScript code of the website's antibot.
+    public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApgjwxZd4I6YnOE1GGCdnKIatX71CyGpssvAAH7udNLcBVr0WzIP1t+KZ7mDzLMyZE9MJmSsEgKidzaVRikarUQ6MUWnyJQxe8DlUNrSmK4ZrnLBD/5rVBcepZo1mPj1MdQWie4AYHUt++lLpPrXqEJ7xugSGIt7ORVGgcKO5ku5RSS1Ssy5iUhYtQo4VCb2UxYuMbpt2YF8LOaR8KtPIQENtNH2Jj7akQTna4I5lixOB0jme03lR5n94SqACUAZ+rFBDKgrC9eVWX8xdfMERxcKuD9NxFCV65tdNiH64CHWaDU13j9v2XGHKFkEORgRn+RQBintX5fEqt7GTTIzvoQIDAQAB"
+
+    payload_encoded = rsa_encrypt(payload, public_key)
     return payload_encoded
 
 
@@ -62,13 +45,18 @@ class TrekkySpider(Spider):
     }
 
     def start_requests(self):
-        """This method initiates the web crawler's initial requests, starting by navigating to the website's
-        homepage."""
-        yield Request(
-            url=self.start_url,
-            callback=self.parse_home,
-            errback=self.errback,
-        )
+        """This method start 10 separate sessions on the homepage, one per page."""
+        for page in range(1, 10):
+            yield Request(
+                url=self.start_url,
+                callback=self.parse_home,
+                errback=self.errback,
+                dont_filter=True,
+                meta=dict(
+                    page=page,
+                    cookiejar=str(page),
+                ),
+            )
 
     def parse_home(self, response):
         """After accessing the website's homepage, we generate the encrypted payload and send it to the server."""
@@ -79,33 +67,27 @@ class TrekkySpider(Spider):
             },
             callback=self.parse,
             errback=self.errback,
+            dont_filter=True,
+            meta=response.meta,
         )
 
     def parse(self, response):
-        """Once approved, we retrieve the list of hotels in Paris."""
+        """Once approved, we retrieve the list of hotels in Paris from page X."""
         yield Request(
-            url=self.start_url + "/cities?city=paris",
-            callback=self.parse_hotels,
+            url=self.start_url + "/cities?city=paris&page=%d" % response.meta['page'],
+            callback=self.parse_listing,
             errback=self.errback,
+            meta=response.meta,
         )
 
-    def parse_hotels(self, response):
-        """This method parses the list of hotels in Paris and also handles pagination."""
-
-        # Pagination
-        for el in response.css('.pagination li a'):
-            yield response.follow(
-                url=el,
-                callback=self.parse_hotels,
-                errback=self.errback,
-            )
-
-        # Hotel links
+    def parse_listing(self, response):
+        """This method parses the list of hotels in Paris from page X."""
         for el in response.css('.hotel-link'):
             yield response.follow(
                 url=el,
                 callback=self.parse_hotel,
                 errback=self.errback,
+                meta=response.meta,
             )
 
     def parse_hotel(self, response):
