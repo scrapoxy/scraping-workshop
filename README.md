@@ -556,9 +556,11 @@ MY_PUBLIC_KEY<br/>
     </tr>
 </table>
 
+If you need help, you can refer to the partial solution located in [solutions/challenge-8-1-partial.py](solutions/challenge-8-1-partial.py).
+
 <details>
     <summary>Soluce is here</summary>
-    <a href="solutions/challenge-8.py">Open the soluce</a>
+    <a href="solutions/challenge-8-2.py">Open the soluce</a>
 </details>
 
 
