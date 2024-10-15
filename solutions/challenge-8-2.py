@@ -54,7 +54,7 @@ class TrekkySpider(Spider):
                 dont_filter=True,
                 meta=dict(
                     page=page,
-                    cookiejar=str(page),
+                    cookiejar="jar%d" % page,
                 ),
             )
 

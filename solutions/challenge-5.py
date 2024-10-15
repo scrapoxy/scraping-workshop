@@ -56,12 +56,15 @@ class TrekkySpider(Spider):
                     playwright=True,
                     # Include the Playwright page object in the response
                     playwright_include_page=True,
+                    playwright_context="context%d" % page,
                     playwright_context_kwargs=dict(
                         # Ignore HTTPS errors
                         ignore_https_errors=True,
                     ),
+                    playwright_page_goto_kwargs=dict(
+                        wait_until='networkidle',
+                    ),
                     page=page,
-                    cookiejar=str(page),
                 ),
             )
 
@@ -70,17 +73,14 @@ class TrekkySpider(Spider):
         await response.meta["playwright_page"].close()
         del response.meta["playwright_page"]
 
+        # For the next requests, skip page rendering and download only the HTML content.
+        response.meta["playwright_page_goto_kwargs"]["wait_until"] = 'commit'
+
         yield Request(
             url=response.urljoin("cities?city=paris&page=%d" % response.meta['page']),
             callback=self.parse_listing,
             errback=self.errback,
-            meta=dict(
-                **response.meta,
-                playwright_page_goto_kwargs=dict(
-                    # For the next requests, skip page rendering and download only the HTML content.
-                    wait_until='commit',
-                )
-            )
+            meta=response.meta,
         )
 
     async def parse_listing(self, response):
