@@ -218,7 +218,7 @@ _Hint: It relates to HTTP request headers 😉_
 
 ## Challenge 3: Rate limit
 
-The URL to scrape is: [https://trekky-reviews.com/level3](https://trekky-reviews.com/level3)
+The URL to scrape is: [https://trekky-reviews.com/level4](https://trekky-reviews.com/level4) (we will skip level3)
 
 Update the URL in your scraper to target the new page and execute the spider:
 
@@ -260,13 +260,9 @@ In the new project, deactivate `Intercept HTTPS requests with MITM`:
 ![Scrapoxy Project Create](images/scrapoxy-project-create.png)
 
 
-### Step 3: Add a Cloud Provider connector
+### Step 3: Add a Proxy Provider
 
-Use [AWS](https://scrapoxy.io/connectors/aws/guide),
-[Azure](https://scrapoxy.io/connectors/azure/guide),
-[Digital Ocean](https://scrapoxy.io/connectors/digitalocean/guide),
-[GCP](https://scrapoxy.io/connectors/gcp/guide) or
-[OVH](https://scrapoxy.io/connectors/ovh/guide).
+See the slides of the provider name and credentials.
 
 Use **10 proxies** from **a European** region.
 
@@ -287,24 +283,17 @@ If you don't have an account with these cloud providers, you can create one.
 </table>
 
 
-### Step 4: Install the connector
-
-Cloud Provider requires connector installation:
-
-![Scrapoxy Connector Install](images/scrapoxy-connector-install.png)
-
-
-### Step 5: Run the connector
+### Step 4: Run the connector
 
 ![Scrapoxy Connector Run](images/scrapoxy-connector-run.png)
 
 
-### Step 6: Connect Scrapoxy to the spider
+### Step 5: Connect Scrapoxy to the spider
 
 Follow this [guide](https://scrapoxy.io/integration/python/scrapy/guide).
 
 
-### Step 7: Execute the spider
+### Step 6: Execute the spider
 
 Run your spider and check that Scrapoxy is handling the requests:
 
@@ -318,44 +307,7 @@ You should observe an increase in the count of received and sent requests.
 </details>
 
 
-## Challenge 4: IP Detection
-
-The URL to scrape is: [https://trekky-reviews.com/level4](https://trekky-reviews.com/level4)
-
-Update the URL in your scraper to target the new page and execute the spider:
-
-```shell
-scrapy crawl trekky
-```
-
-Data collection might fail due to the use of **datacenter proxies**.
-
-Datacenter proxies from cloud providers are **frequently detected** by commercial anti-bot systems.
-To bypass this, we need more sophisticated proxies.
-
-Scrapoxy offers support for many connectors to different proxy services. 
-Today, we will integrate one of these services, which has provided free credits for the workshop.
-
-Refer to [Scrapoxy's documentation](https://scrapoxy.io/intro/scrapoxy) to add this provider.
-
-<table>
-    <tr>
-        <td width="70">
-            <img src="images/warning.png" />
-        </td>
-        <td>
-            Don't forget to stop the cloud provider connector
-        </td>
-    </tr>
-</table>
-
-<details>
-    <summary>Soluce is here</summary>
-    <a href="solutions/challenge-4.py">Open the soluce</a>
-</details>
-
-
-## Challenge 5: Fingerprint
+## Challenge 4: Fingerprint
 
 The URL to scrape is: [https://trekky-reviews.com/level6](https://trekky-reviews.com/level6) (we will skip level5).
 
@@ -410,11 +362,11 @@ Our goal is to adapt the spider to integrate Playwright:
 
 <details>
     <summary>Soluce is here</summary>
-    <a href="solutions/challenge-5.py">Open the soluce</a>
+    <a href="solutions/challenge-4.py">Open the soluce</a>
 </details>
 
 
-## Challenge 6: Consistency
+## Challenge 5: Consistency
 
 The URL to scrape is: [https://trekky-reviews.com/level7](https://trekky-reviews.com/level7)
 
@@ -434,11 +386,11 @@ _Hint: It involves adjusting timezones 😉_
 
 <details>
     <summary>Soluce is here</summary>
-    <a href="solutions/challenge-6.py">Open the soluce</a>
+    <a href="solutions/challenge-5.py">Open the soluce</a>
 </details>
 
 
-## Challenge 7: Deobfuscation
+## Challenge 6: Deobfuscation
 
 The URL to scrape is: [https://trekky-reviews.com/level8](https://trekky-reviews.com/level8)
 
@@ -537,11 +489,11 @@ Now, you can implement the 3 AST operations:
 
 <details>
     <summary>Soluce is here</summary>
-    <a href="solutions/challenge-7.js">Open the soluce</a>
+    <a href="solutions/challenge-6.js">Open the soluce</a>
 </details>
 
 
-## Challenge 8: Payload generation
+## Challenge 7: Payload generation
 
 Here’s a summary of the script’s behavior:
 
@@ -576,11 +528,11 @@ MY_PUBLIC_KEY<br/>
     </tr>
 </table>
 
-If you need help, you can refer to the partial solution located in [solutions/challenge-8-1-partial.py](solutions/challenge-8-1-partial.py).
+If you need help, you can refer to the partial solution located in [solutions/challenge-7-1-partial.py](solutions/challenge-7-1-partial.py).
 
 <details>
     <summary>Soluce is here</summary>
-    <a href="solutions/challenge-8-2.py">Open the soluce</a>
+    <a href="solutions/challenge-7-2.py">Open the soluce</a>
 </details>
 
 

@@ -14,29 +14,33 @@ class TrekkySpider(Spider):
 
     name = "trekky"
 
-    # No changes are needed for this challenge compared to the previous one, as all adjustments were made in Scrapoxy.
-    start_url = "https://trekky-reviews.com/level4"
+    start_url = "https://trekky-reviews.com/level6"
 
     custom_settings = {
-        "USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
-
         "DEFAULT_REQUEST_HEADERS": {
             "Connection": "close",
-            "Sec-Ch-Ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"90\", \"Google Chrome\";v=\"90\"",
-            "Sec-Ch-Ua-Mobile": "?0",
-            "Sec-Ch-Ua-Platform": "\"Windows\"",
         },
 
         "DOWNLOADER_MIDDLEWARES": {
             'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
             'scrapers.middlewares.retry.RetryMiddleware': 550,
-            'scrapoxy.ProxyDownloaderMiddleware': 100,
         },
 
-        "SCRAPOXY_MASTER": "http://localhost:8888",
-        "SCRAPOXY_API": "http://localhost:8890/api",
-        "SCRAPOXY_USERNAME": "TO_FILL",
-        "SCRAPOXY_PASSWORD": "TO_FILL",
+        # Replace the default Scrapy downloader with Playwright and Chrome to manage JavaScript content.
+        "DOWNLOAD_HANDLERS": {
+            "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+            "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+        },
+
+        # Set up Playwright to launch the browser in headful mode using Scrapoxy.
+        "PLAYWRIGHT_LAUNCH_OPTIONS": {
+            "headless": False,
+            "proxy": {
+                "server": "http://localhost:8888",
+                "username": "TO_FILL",
+                "password": "TO_FILL",
+            },
+        }
     }
 
     def start_requests(self):
@@ -48,13 +52,30 @@ class TrekkySpider(Spider):
                 errback=self.errback,
                 dont_filter=True,
                 meta=dict(
+                    # Enable Playwright
+                    playwright=True,
+                    # Include the Playwright page object in the response
+                    playwright_include_page=True,
+                    playwright_context="context%d" % page,
+                    playwright_context_kwargs=dict(
+                        # Ignore HTTPS errors
+                        ignore_https_errors=True,
+                    ),
+                    playwright_page_goto_kwargs=dict(
+                        wait_until='networkidle',
+                    ),
                     page=page,
-                    cookiejar="jar%d" % page,
                 ),
             )
 
-    def parse(self, response):
+    async def parse(self, response):
         """After accessing the website's homepage, we retrieve the list of hotels in Paris from page X."""
+        await response.meta["playwright_page"].close()
+        del response.meta["playwright_page"]
+
+        # For the next requests, skip page rendering and download only the HTML content.
+        response.meta["playwright_page_goto_kwargs"]["wait_until"] = 'commit'
+
         yield Request(
             url=response.urljoin("cities?city=paris&page=%d" % response.meta['page']),
             callback=self.parse_listing,
@@ -62,8 +83,11 @@ class TrekkySpider(Spider):
             meta=response.meta,
         )
 
-    def parse_listing(self, response):
+    async def parse_listing(self, response):
         """This method parses the list of hotels in Paris from page X."""
+        await response.meta["playwright_page"].close()
+        del response.meta["playwright_page"]
+
         for el in response.css('.hotel-link'):
             yield response.follow(
                 url=el,
@@ -72,8 +96,11 @@ class TrekkySpider(Spider):
                 meta=response.meta,
             )
 
-    def parse_hotel(self, response):
+    async def parse_hotel(self, response):
         """This method parses hotel details such as name, email, and reviews."""
+        await response.meta["playwright_page"].close()
+        del response.meta["playwright_page"]
+
         reviews = [self.get_review(review_el) for review_el in response.css('.hotel-review')]
 
         hotel = HotelItemLoader(response=response)
@@ -88,6 +115,9 @@ class TrekkySpider(Spider):
         review.add_css('rating', '.review-rating::text')
         return review.load_item()
 
-    def errback(self, failure):
+    async def errback(self, failure):
         """This method handles and logs errors and is invoked with each request."""
         print_failure(self.logger, failure)
+        page = failure.request.meta.get("playwright_page")
+        if page:
+            await page.close()

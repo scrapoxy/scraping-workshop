@@ -60,6 +60,8 @@ class TrekkySpider(Spider):
                     playwright_context_kwargs=dict(
                         # Ignore HTTPS errors
                         ignore_https_errors=True,
+                        # Sync the timezone with the proxy's location.
+                        timezone_id='America/Chicago',
                     ),
                     playwright_page_goto_kwargs=dict(
                         wait_until='networkidle',
