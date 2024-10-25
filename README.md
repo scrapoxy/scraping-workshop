@@ -264,7 +264,7 @@ In the new project, deactivate `Intercept HTTPS requests with MITM`:
 
 See the slides of the provider name and credentials.
 
-Use **10 proxies** from **a European** region.
+Use **5 proxies** from **a European** region.
 
 ![Scrapoxy Connector Create](images/scrapoxy-connector-create.png)
 
