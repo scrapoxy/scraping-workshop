@@ -74,9 +74,29 @@ You can manually install the required dependencies, which include:
 - Node.js (version 20 or higher)
 - Docker
 
-You can download Node.js from: https://nodejs.org/en/download
+#### Python
 
-For Python, you can use Anaconda: https://www.anaconda.com/download
+If you need Python, I recommend using [Anaconda](https://www.anaconda.com/download).
+
+To install a Virtual Environment, run the following command:
+
+```shell
+python3 -v venv venv
+source venv/bin/activate
+```
+
+
+#### Node.js
+
+To install Node.js, follow the instructions on: https://nodejs.org/en/download
+
+
+#### Docker
+
+To install Docker, follow the instructions for
+[Mac](https://docs.docker.com/desktop/install/mac-install), 
+[Windows](https://docs.docker.com/desktop/install/windows-install) or
+[Linux](https://docs.docker.com/desktop/install/linux/).
 
 
 ## Setting up
