@@ -1,4 +1,4 @@
 pycryptodome==3.20.0
 scrapoxy==2.0.2
 Scrapy==2.11.2
-playright_python
+scrapy_playwright
