@@ -420,45 +420,7 @@ var _qkrt1f=window,_uqvmii="tdN",_u5zh1i="UNM",_p949z3="on",_eu2jji="en",_vnsd5q
 To understand which information is being sent and how to emulate it, we need to **deobfuscate the code**.
 
 
-### Step 2: Deobfuscate the Javascript
-
-Copy/paste the source code of this obfuscated script to `tools/obfuscated.js`.
-
-And run the deobfucator script:
-
-```shell
-node tools/deobfuscate.js
-```
-
-This script currently doesn't perform any operations.
-Our goal is to add [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree) operations to transform and deobfuscate the code.
-
-<table>
-    <tr>
-        <td width="70">
-            <image src="images/note.png">
-        </td>
-        <td>
-            Of course, you can use <a href="https://obf-io.deobfuscate.io">online tools</a> to deobfuscate this script,
-given that it's a straightforward obfuscated script. 
-            However, our focus is to understand how Babel can be used for deobfuscation.
-        </td>
-    </tr>
-</table>
-
-<table>
-    <tr>
-        <td width="70">
-            <image src="images/info.png">
-        </td>
-        <td>
-            <a href="https://github.com/features/copilot">GitHub Copilot</a>
-            can be incredibly helpful in writing AST operations, just as
-            <a href="https://claude.ai">Claude Sonnet 3.5</a>
-            is valuable for deciphering complex functions.
-        </td>
-    </tr>
-</table>
+### Step 2: Understand the code structure
 
 To understand the structure of the code, copy/paste some code into the website [AST Explorer](https://astexplorer.net)
 
@@ -481,19 +443,37 @@ AST Explorer parses the source code and generates a visual tree:
     </tr>
 </table>
 
-Now, you can implement the 3 AST operations:
 
-* **Constant Unfolding**: replace all constants with their respective string values;
-* **String Join**: combine strings that have been split into multiple parts;
-* **Dot Notation**: convert string notation into dot notation.
+### Step 3: Deobfuscate the Javascript
 
-<details>
-    <summary>Soluce is here</summary>
-    <a href="solutions/challenge-6.js">Open the soluce</a>
-</details>
+Copy/paste the whole obfuscated code to `tools/obfuscated.js`.
+
+And run the deobfucator script:
+
+```shell
+node tools/deobfuscator.js
+```
+
+This script will deobfuscate specificaly this code.
+
+<table>
+    <tr>
+        <td width="70">
+            <image src="images/note.png">
+        </td>
+        <td>
+            You can use <a href="https://obf-io.deobfuscate.io">online tools</a> to deobfuscate this script,
+given that it's a straightforward obfuscated script.
+            Also, <a href="https://github.com/features/copilot">GitHub Copilot</a>
+            can be incredibly helpful in writing AST operations, just as
+            <a href="https://claude.ai">Claude Sonnet 3.5</a>
+            is valuable for deciphering complex functions.
+        </td>
+    </tr>
+</table>
 
 
-## Challenge 7: Payload generation
+### Step 4: Payload generation
 
 Here’s a summary of the script’s behavior:
 
@@ -506,34 +486,8 @@ We need to implement the same approach in our spider.
 Since we will be crafting the payload ourselves, there is **no need** to use Playwright anymore. 
 We will simply send the payload **before** initiating any requests.
 
-You can use the Python's `Crypto` and `base64` libraries:
-
-<table>
-    <tr>
-        <td width="70">
-            <image src="images/note.png">
-        </td>
-        <td>
-            <ul>
-                <li>
-                    Crypto.RSA.importKey requires a PEM key format such as:<br/>
-                    <code>-----BEGIN PUBLIC KEY-----<br/>
-MY_PUBLIC_KEY<br/>
------END PUBLIC KEY-----</code>
-                </li>
-                <li>RSA uses OAEP</li>
-                <li>Don't forget the SHA256 signature</li>
-            </ul>
-        </td>
-    </tr>
-</table>
-
-If you need help, you can refer to the partial solution located in [solutions/challenge-7-1-partial.py](solutions/challenge-7-1-partial.py).
-
-<details>
-    <summary>Soluce is here</summary>
-    <a href="solutions/challenge-7-2.py">Open the soluce</a>
-</details>
+You can now completely replace the code in [solutions/challenge-6-1-partial.py](solutions/challenge-6-1-partial.py)
+and fill in the missing parts.
 
 
 ## Conclusion
