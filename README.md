@@ -352,18 +352,18 @@ We will use the headless framework [Playwright](https://playwright.dev) along wi
     </tr>
 </table>
 
-Our goal is to adapt the spider to integrate Playwright:
+Our goal is to adapt the spider to integrate Playwright.
 
-* Update the settings to include a custom `DOWNLOAD_HANDLERS`.
-* Configure Playwright sessions `PLAYWRIGHT_LAUNCH_OPTIONS` to:
-  * Disable headless mode (allowing you to see Playwright's actions)
-  * Use a proxy (redirecting traffic through Scrapoxy)
-* Attach metadata to each request to enable Playwright and ignore HTTPS errors (using ignore_https_errors).
+You can now completely replace the code in [solutions/challenge-4.py](solutions/challenge-4.py)
+due to extensive modifications needed. 
 
-<details>
-    <summary>Soluce is here</summary>
-    <a href="solutions/challenge-4.py">Open the soluce</a>
-</details>
+The updates include:
+ 
+* **Settings**: Updated to add a custom `DOWNLOAD_HANDLERS`.
+* **Playwright Configuration**: `PLAYWRIGHT_LAUNCH_OPTIONS` now:
+  * Disables headless mode, allowing you to view Playwright’s actions.
+  * Configures a proxy to route traffic through Scrapoxy.
+* **Request Metadata**: Each request now includes metadata to enable Playwright and ignore HTTPS errors (using ignore_https_errors).
 
 
 ## Challenge 5: Consistency
