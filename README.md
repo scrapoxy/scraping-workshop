@@ -489,6 +489,11 @@ We will simply send the payload **before** initiating any requests.
 You can now completely replace the code in [solutions/challenge-6-1-partial.py](solutions/challenge-6-1-partial.py)
 and fill in the missing parts.
 
+<details>
+    <summary>Soluce is here</summary>
+    <a href="solutions/challenge-6-2.py">Open the soluce</a>
+</details>
+
 
 ## Conclusion
 
