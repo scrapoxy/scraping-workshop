@@ -1,4 +1,4 @@
 pycryptodome==3.20.0
 scrapoxy==2.0.2
 Scrapy==2.11.2
-git+https://github.com/microsoft/playwright-python.git
+scrapy_playwright
