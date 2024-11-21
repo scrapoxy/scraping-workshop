@@ -81,7 +81,7 @@ If you need Python, I recommend using [Anaconda](https://www.anaconda.com/downlo
 To install a Virtual Environment, run the following command:
 
 ```shell
-python3 -v venv venv
+python3 -m venv venv
 source venv/bin/activate
 ```
 
