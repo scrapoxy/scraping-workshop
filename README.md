@@ -255,16 +255,16 @@ sudo docker run -p 8888:8888 -p 8890:8890 -e AUTH_LOCAL_USERNAME=admin -e AUTH_L
 
 ### Step 2: Create a new project
 
-In the new project, deactivate `Intercept HTTPS requests with MITM`:
+In the new project, keep the default settings and click the `Create` button:
 
 ![Scrapoxy Project Create](images/scrapoxy-project-create.png)
 
 
 ### Step 3: Add a Proxy Provider
 
-See the slides of the provider name and credentials.
+See the slides to set up the proxies provider account.
 
-Use **5 proxies** from **a European** region.
+Use **10 proxies** from the **United States of America**:
 
 ![Scrapoxy Connector Create](images/scrapoxy-connector-create.png)
 
