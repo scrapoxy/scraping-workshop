@@ -109,7 +109,7 @@ This step is necessary even if you are using the VM.
 Clone this repository:
 
 ```shell
-git clone https://github.com/fabienvauchelles/scraping-workshop.git
+git clone https://github.com/scrapoxy/scraping-workshop.git
 cd scraping-workshop
 ```
 
@@ -151,7 +151,7 @@ npm install
 Run the following command to download Scrapoxy:
 
 ```shell
-sudo docker pull fabienvauchelles/scrapoxy
+sudo docker pull scrapoxy/scrapoxy
 ```
 
 
@@ -249,7 +249,7 @@ Use [Scrapoxy](https://scrapoxy.io) to bypass the rate limit with a cloud provid
 Follow this [guide](https://scrapoxy.io/intro/get-started) or run the following command in the project directory:
 
 ```shell
-sudo docker run -p 8888:8888 -p 8890:8890 -e AUTH_LOCAL_USERNAME=admin -e AUTH_LOCAL_PASSWORD=password -e BACKEND_JWT_SECRET=secret1 -e FRONTEND_JWT_SECRET=secret2 -e STORAGE_FILE_FILENAME=/scrapoxy.json -v ./scrapoxy.json:/scrapoxy.json fabienvauchelles/scrapoxy:latest
+sudo docker run -p 8888:8888 -p 8890:8890 -e AUTH_LOCAL_USERNAME=admin -e AUTH_LOCAL_PASSWORD=password -e BACKEND_JWT_SECRET=secret1 -e FRONTEND_JWT_SECRET=secret2 -e STORAGE_FILE_FILENAME=/scrapoxy.json -v ./scrapoxy.json:/scrapoxy.json scrapoxy/scrapoxy:latest
 ```
 
 
