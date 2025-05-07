@@ -21,7 +21,7 @@
         "trekky"
       ],
       "cwd": "${workspaceFolder}",
-      "python": "${workspaceFolder}/venv/bin/python",
+      "python": "/home/vboxguest/venv/bin/python",
       "env": {
         "PYTHONUNBUFFERED": "1"
       },

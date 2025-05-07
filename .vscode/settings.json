@@ -2,7 +2,7 @@
   "editor.formatOnSave": true,
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
-  "python.defaultInterpreterPath": "${workspaceFolder}/venv/bin/python",
+  "python.defaultInterpreterPath": "/home/vboxguest/venv/bin/python",
   "python.analysis.extraPaths": [
     "${workspaceFolder}"
   ],
