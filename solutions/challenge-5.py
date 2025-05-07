@@ -14,7 +14,7 @@ class TrekkySpider(Spider):
 
     name = "trekky"
 
-    start_url = "https://trekky-reviews.com/level6"
+    start_url = "https://trekky-reviews.com/level7"
 
     custom_settings = {
         "DEFAULT_REQUEST_HEADERS": {
