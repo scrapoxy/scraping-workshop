@@ -29,9 +29,10 @@ class TrekkySpider(Spider):
         "DOWNLOADER_MIDDLEWARES": {
             'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
             'scrapers.middlewares.retry.RetryMiddleware': 550,
+        },
 
-            # Add Scrapoxy middleware to route requests via Scrapoxy
-            'scrapoxy.ProxyDownloaderMiddleware': 100,
+        "ADDONS": {
+            'scrapoxy.Addon': 100,
         },
 
         # Set up Scrapoxy settings and credentials
