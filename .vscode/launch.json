@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "deobfuscator.js",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/tools/deobfuscator.js",
+      "cwd": "${workspaceFolder}",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
+    {
+      "name": "trekky",
+      "type": "python",
+      "request": "launch",
+      "module": "scrapy.cmdline",
+      "args": [
+        "crawl",
+        "trekky"
+      ],
+      "cwd": "${workspaceFolder}",
+      "python": "${workspaceFolder}/venv/bin/python",
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      },
+      "console": "integratedTerminal"
+    }
+  ]
+}
