@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="deobfuscator.js" type="NodeJSConfigurationType" path-to-node="$USER_HOME$/.nvm/versions/node/v22.13.1/bin/node" nameIsGenerated="true" path-to-js-file="tools/deobfuscator.js" working-dir="$PROJECT_DIR$">
+    <method v="2" />
+  </configuration>
+</component>
