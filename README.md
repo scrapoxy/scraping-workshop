@@ -55,7 +55,7 @@ You can download it **[from this link](https://bit.ly/scwsfiles).**
 
 The virtual machine is in OVA format and can be easily imported into [VirtualBox](https://www.virtualbox.org).
 
-It requires 8 Go RAM and 2 vCPU.
+It requires 8 GiB RAM and 2 vCPU.
 
 Click on `Import Appliance` and choose the OVA file you downloaded.
 
