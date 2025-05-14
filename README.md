@@ -495,6 +495,32 @@ and fill in the missing parts.
 </details>
 
 
+## Challenge 7: Playwright Detection
+
+The URL to scrape is: [https://trekky-reviews.com/level9](https://trekky-reviews.com/level9)
+
+For this challenge, directly use a Pure Playwright scraper from [playwright_spider.py](playwright_spider.py) (don't use Scrapy).
+
+Run it:
+
+```shell
+python playwright_spider.py
+```
+
+You will notice that data collection may fail due to **playwright** detection.
+
+Anti-bot checks if CDP protocol or network inspector is opened.
+
+Try to replace Playwright by another framework!
+
+_Hint: Use <a href="https://camoufox.com/">Camoufoux</a> 😉_
+
+<details>
+    <summary>Soluce is here</summary>
+    <a href="solutions/challenge-7.py">Open the soluce</a>
+</details>
+
+
 ## Conclusion
 
 Thank you so much for participating in this workshop.
