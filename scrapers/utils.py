@@ -40,7 +40,11 @@ def print_failure(logger, failure):
             else:
                 error = json.loads(text)
 
-            message += f"Error: {error['message']}\n\nDetails: {error['description']}\n"
+            description = error.get('description')
+            if description:
+                message += f"Error: {error['message']}\n\nDetails: {description}\n"
+            else:
+                message += f"Error: {error['message']}\n"
         except json.JSONDecodeError:
             message += text
     else:
